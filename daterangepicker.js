@@ -373,23 +373,25 @@
             var row = title.substr(1, 1);
             var col = title.substr(3, 1);
             var cal = $(e.target).parents('.calendar');
+            var localStartDate;
+            var localEndDate;
 
             if (cal.hasClass('left')) {
-                startDate = this.leftCalendar.calendar[row][col];
-                endDate = this.endDate;
+                localStartDate = this.leftCalendar.calendar[row][col];
+                localEndDate = this.endDate;
             } else {
-                startDate = this.startDate;
-                endDate = this.rightCalendar.calendar[row][col];
+                localStartDate = this.startDate;
+                localEndDate = this.rightCalendar.calendar[row][col];
             }
 
             cal.find('td').removeClass('active');
 
-            if (startDate.equals(endDate) || startDate.isBefore(endDate)) {
+            if (localStartDate.equals(localEndDate) || localStartDate.isBefore(localEndDate)) {
                 $(e.target).addClass('active');
-                if (!startDate.equals(this.startDate) || !endDate.equals(this.endDate))
+                if (!localStartDate.equals(this.startDate) || !localEndDate.equals(this.endDate))
                     this.changed = true;
-                this.startDate = startDate;
-                this.endDate = endDate;
+                this.startDate = localStartDate;
+                this.endDate = localEndDate;
             }
 
             this.leftCalendar.month.set({ month: this.startDate.getMonth(), year: this.startDate.getFullYear() });
